@@ -7,8 +7,8 @@ def get_lists(file_path):
     list_two = []
     with open(file_path, "r") as file:
         for line in file.readlines():
-            list_one.append(line[:line.index("   ")])
-            list_two.append(line[line.index("   ")+3:-1])
+            list_one.append(int(line[:line.index("   ")]))
+            list_two.append(int(line[line.index("   ")+3:-1]))
     return list_one, list_two
 
 
@@ -21,8 +21,14 @@ def main():
     total = 0
     # go through each pair and return the difference without any sign
     for num_one, num_two in zip(list_one, list_two):
-        total += abs(int(num_one) - int(num_two))
+        total += abs(num_one - num_two)
     print(total)
+
+    # ***Puzzle 2 Solution***
+    similarity_score = 0
+    for num_one in list_one:
+        similarity_score += (num_one * list_two.count(num_one))
+    print(similarity_score)
 
 
 if __name__ == "__main__":
