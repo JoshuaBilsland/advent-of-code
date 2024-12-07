@@ -6,8 +6,9 @@ def extract_input(file_path):
     return lines
 
 
-def problem_1(page_rules, page_updates):
-    total = 0
+def check_updates(page_rules, page_updates):
+    correct_total = 0
+    incorrect_total = 0
 
     for update in page_updates:
         relevant_rules = []
@@ -40,12 +41,16 @@ def problem_1(page_rules, page_updates):
 
         # Check if already in the right order
         if update == ordered_update:
-            total += int(update[len(update)//2])
-    return total
+            correct_total += int(update[len(update)//2])
+        else:
+            # Problem 2 Section - get total for incorrect updates
+            incorrect_total += int(ordered_update[len(update)//2])
+
+    return correct_total, incorrect_total
 
 
 def main():
-    # ***Problem 1 Solution***
+    # ***Problem 1 & 2 Solution***
     input_contents = extract_input("2024/day-05/input.txt")
     input_contents.pop(input_contents.index(""))
     page_rules = []
@@ -55,7 +60,8 @@ def main():
             page_rules.append(line.split("|"))
         else:
             page_updates.append(line.split(","))
-    print(problem_1(page_rules, page_updates))
+    print(check_updates(page_rules, page_updates)[0])
+    print(check_updates(page_rules, page_updates)[1])
 
 
 if __name__ == "__main__":
